@@ -1,20 +1,16 @@
-from ps3.ps3a import *
+from ps3a import *
 
 
-#
-#
 # Problem #6A: Computer chooses a word
-#
-#
 def comp_choose_word(hand, word_list):
     """
-	Given a hand and a word_dict, find the word that gives the maximum value score, and return it.
-   	This word should be calculated by considering all possible permutations of lengths 1 to HAND_SIZE.
-
+    Given a hand and a word_dict, find the word that gives the maximum value score, and return it.
+    This word should be calculated by considering all possible permutations of lengths 1 to HAND_SIZE.
     hand: dictionary (string -> int)
     word_list: list (string)
     """
     # TO DO...
+
 
 #
 # Problem #6B: Computer plays a hand
@@ -39,7 +35,8 @@ def comp_play_hand(hand, word_list):
      word_list: list (string)
     """
     # TO DO ...    
-    
+
+
 #
 # Problem #6C: Playing a game
 #
@@ -63,7 +60,7 @@ def play_game(word_list):
     word_list: list (string)
     """
     # TO DO...
-        
+
 #
 # Build data structures used for entire session and play game
 #
