@@ -2,7 +2,7 @@ import random
 import string
 
 WORDLIST_FILENAME = "words.txt"
-
+# /Users/julia/Projects/mitcourse/ps2/words.txt
 
 def load_words():
     """
@@ -35,7 +35,7 @@ def hangman():
     print "I am thinking of a word that is {length} letters long".format(length=len(hidden_word))
     incorrect_guesses = 8
     used_letters = {}
-    while incorrect_guesses > 0 and not found_hidden_word(hidden_word, used_letters):
+    while incorrect_guesses > 0 and not word_is_guessed(hidden_word, used_letters):
         print ">>>>>>>>>>>>>>>>>>>>"
         print "You have {incorrect_guesses} guesses left".format(incorrect_guesses=incorrect_guesses)
         print "Available Letters: " + get_available_letters(used_letters)
@@ -51,8 +51,17 @@ def hangman():
                       + hidden_word + ". Play again!"
                 break
         print
-        if found_hidden_word(hidden_word, used_letters):
+        if word_is_guessed(hidden_word, used_letters):
             print "Congratulations, you won!"
+
+
+def word_is_guessed(hidden_word, used_letters):
+    if hidden_word:
+        if hidden_word[0] in used_letters:
+            return word_is_guessed(hidden_word[1:], used_letters)
+        else:
+            return False
+    return True
 
 
 def get_hidden_word(hidden_word, used_letters):
@@ -66,14 +75,6 @@ def get_hidden_word(hidden_word, used_letters):
                 visible_word += " "
             visible_word += "_"
     return visible_word
-
-
-def found_hidden_word(hidden_word, used_letters):
-    """Returns True if the word has been completely uncovered"""
-    for letter in hidden_word:
-        if letter not in used_letters:
-            return False
-    return True
 
 
 def get_available_letters(used_letters):

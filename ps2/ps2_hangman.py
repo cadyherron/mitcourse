@@ -37,13 +37,15 @@ def partial_word(word_to_guess, guessed_letters):
         if letter in guessed_letters:
             result = result + letter
         else:
-            result += '_ '
+            result += '_'
     return result
 
 
 def hangman_game(wordList, num_guesses=5):
-    alphabet = ALPHABET
+    available_letters = ALPHABET
     guessed_letters = []
+    guesses_remaining = num_guesses
+    partial = ''
 
     # computer chooses a word
     word_to_guess = choose_word(wordList)
@@ -51,31 +53,31 @@ def hangman_game(wordList, num_guesses=5):
     print ("Welcome to the game, Hangman!\n"
            "I am thinking of a word that is {num_letters} letters long.".format(num_letters=num_letters))
 
-    while num_guesses >= 0:
-        print "You have {number} guesses left.".format(number=num_guesses)
-        print "Available letters: ", ''.join(alphabet)
+    while guesses_remaining > 0 and partial != word_to_guess:
+        print "You have {number} guesses left.".format(number=guesses_remaining)
+        print "Available letters: ", ''.join(available_letters)
         guess = raw_input('Please guess a letter: ').lower()
-        print "----------------------"
+        print ">>>>>>>>>>>>>>>>>>>>>"
         if guess in guessed_letters:
             print "You already guessed that letter, silly! Please guess again."
         elif guess not in ALPHABET:
             print "That's not a letter. Please guess again."
         else:
             guessed_letters.append(guess)
-            alphabet.remove(guess)
+            available_letters.remove(guess)
             partial = partial_word(word_to_guess, guessed_letters)
             if guess in word_to_guess:
                 if partial == word_to_guess:
-                    print "Congratulations, you won! The word is: ", word_to_guess
+                    print "Congratulations, you won!"
                 else:
-                    print "Good guess: ", partial
+                    print "Good guess: "
             else:  # letter is not in the word
-                if num_guesses == 1:  # player just used their last guess
+                if guesses_remaining == 1:  # player just used their last guess
                     print "Sorry, you lost! The word was: ", word_to_guess
-                    break
                 else:
-                    print "Oops! That letter is not in my word:", partial
-                    num_guesses -= 1
+                    print "Oops! That letter is not in my word:"
+                guesses_remaining -= 1
+        print "Hangman:", partial
 
 
 hangman_game(wordList=load_words())
