@@ -94,9 +94,7 @@ def display_hand(hand):
             print letter,  # print all on the same line
 
 
-
 # Make sure you understand how this function works and what it does!
-#
 def deal_hand(n):
     """
     Returns a random hand containing n lowercase letters.
@@ -205,7 +203,7 @@ def play_hand(hand, word_list):
     * The hand finishes when there are no more unused letters.
       The user can also finish playing the hand by inputting a single
       period (the string '.') instead of a word.
-    :param hand: dictionary (string -> int), letters user chooses from
+    :param hand: dictionary (string -> int), letters the user chooses from
     :param word_list: list of lowercase strings
     """
     original_hand_length = calculate_handlen(hand=hand)
@@ -213,42 +211,49 @@ def play_hand(hand, word_list):
     while calculate_handlen(hand=hand) > 0:
         print "Current hand:", display_hand(hand=hand)
         word = raw_input("Please make a word out of your letters: ")
+        print ">>>>>>>>>>>>>>>>>>>"
         if is_valid_word(word=word, hand=hand, word_list=word_list):
             print "That's a great word!"
             points = get_word_score(word=word, n=original_hand_length)
             score += points
             print "Your score is:", score
             hand = update_hand(hand=hand, word=word)
+            # let's exit the game if the user has no valid words left
+            # print "score of letters remaining:", get_word_score(hand, len(hand))
+            # if get_word_score(hand, len(hand)) < 1:
+            if not is_valid_word(hand, hand, word_list):
+                print "You can't make any more valid words. Total score: ", score
+                return False
         else:
-            raw_input("Please enter a valid word from the English language")
-    print "You have run out of letters. Total score: ", score
+            print ("Your word must be:\n1. A valid word from the English language\n2. "
+                   "Made only from your letters\nPlease try again!")
+    print "Great job, you used all your letters! Total score: ", score
 
-# hand = {'a':1, 'q':1, 'l':2, 'm':1, 'u':1, 'i':1}
-# play_hand(hand=hand, word_list=load_words())
 
 # Problem #5: Playing a game
-# Make sure you understand how this code works!
-# 
 def play_game(word_list):
     """
     Allow the user to play an arbitrary number of hands.
-
     * Asks the user to input 'n' or 'r' or 'e'.
-
     * If the user inputs 'n', let the user play a new (random) hand.
       When done playing the hand, ask the 'n' or 'e' question again.
-
     * If the user inputs 'r', let the user play the last hand again.
-
     * If the user inputs 'e', exit the game.
-
     * If the user inputs anything else, ask them again.
     """
-    # TO DO...
+    hand = deal_hand(HAND_SIZE)
+    print "Welcome to MagicWordGame2000!"
+    user_choice = raw_input("Would you like to play a new hand (n), replay last hand (r), or exit the game (e)? ")
+    if user_choice not in ['n', 'r', 'e']:
+        print "Please type your choice: n, r, e"
+    elif user_choice == 'n':
+        play_hand(hand.copy(), word_list)
+    elif user_choice == 'r':
+        play_hand(hand.copy(), word_list)
+    else:
+        print "Thank you for playing MagicWordGame2000! kbye"
 
-#
-# Build data structures used for entire session and play game
-#
+
 if __name__ == '__main__':
     word_list = load_words()
     play_game(word_list)

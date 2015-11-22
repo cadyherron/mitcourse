@@ -1,4 +1,4 @@
-from ps3.ps3a import *
+from ps3a import *
 
 #
 # Test code

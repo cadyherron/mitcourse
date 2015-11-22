@@ -2,7 +2,6 @@ import random
 import string
 
 WORDLIST_FILENAME = "words.txt"
-# /Users/julia/Projects/mitcourse/ps2/words.txt
 
 def load_words():
     """
@@ -87,7 +86,7 @@ def get_available_letters(used_letters):
 
 
 def request_letter(used_letters):
-    """Asks for another guess and returns (gameover, victory) """
+    """Asks for another guess and returns (game over, victory) """
     new_letter = raw_input("Please guess a letter: ").lower()
     used_letters[new_letter] = 1
     return new_letter
