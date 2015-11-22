@@ -80,6 +80,35 @@ def sort(list, lt=lambda x, y: x < y):
 # print 'Sorted list =', newL
 
 
+def last_name_first_name(name1, name2):
+    import string
+    # first name is everything before space, name1[0]
+    name1 = string.split(name1, ' ')
+    # last name is everything after the space, name2[1]
+    name2 = string.split(name2, ' ')
+    if name1[1] != name2[1]:
+        return name1[1] < name2[1]
+    else:
+        return name1[0] < name2[0]
 
 
+# name1 = "Julia Herron"
+# name2 = "Greg Flanagan"
+# print last_name_first_name(name1, name2)
+
+
+def first_name_last_name(name1, name2):
+    import string
+    name1 = string.split(name1, ' ')
+    name2 = string.split(name2, ' ')
+    if name1[0] != name2[0]:
+        return name1[0] < name2[0]
+    else:
+        return name1[1] < name2[1]
+
+L = ['John Guttag', 'Tom Brady', 'Chancellor Grimson', 'Gisele Brady']
+newL = sort(L, last_name_first_name)
+print 'Sorted list =', newL
+newL = sort(L, first_name_last_name)
+print 'Sorted list =', newL
 
