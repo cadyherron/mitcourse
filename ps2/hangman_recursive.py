@@ -3,7 +3,6 @@ import string
 
 WORDLIST_FILENAME = "words.txt"
 
-
 def load_words():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
@@ -55,6 +54,15 @@ def hangman():
             print "Congratulations, you won!"
 
 
+def word_is_guessed(hidden_word, used_letters):
+    if hidden_word:
+        if hidden_word[0] in used_letters:
+            return word_is_guessed(hidden_word[1:], used_letters)
+        else:
+            return False
+    return True
+
+
 def get_hidden_word(hidden_word, used_letters):
     """Returns a string of the form __ad___ by filling in correct guesses"""
     visible_word = ""
@@ -66,15 +74,6 @@ def get_hidden_word(hidden_word, used_letters):
                 visible_word += " "
             visible_word += "_"
     return visible_word
-
-
-def word_is_guessed(hidden_word, used_letters):
-    if hidden_word:
-        if hidden_word[0] in used_letters:
-            return word_is_guessed(hidden_word[1:], used_letters)
-        else:
-            return False
-    return True
 
 
 def get_available_letters(used_letters):
