@@ -119,12 +119,13 @@ def the_counting_game(number_of_players=10, total=100):
                 print "p", player_number, "said: ", num_said
                 player_number += 1
             # if the next number will be a multiple of 7, time to switch directions
-            if num_said % 7 == 0:
+            if (num_said + 1) % 7 == 0:
                 print "this should switch", dir
                 dir = switch_direction(dir)
                 print "this should switch", dir
         elif dir == 'left':
-            # if we're at the first player, going left means going to the last player
+            print dir
+            # if this is the first player, going left means going to the last player
             # which is total number of players
             if player_number == 1:
                 player_number += (number_of_players - 1)
@@ -132,14 +133,14 @@ def the_counting_game(number_of_players=10, total=100):
                 print "p", player_number, "said: ", num_said
                 player_number -= 1
             # if the next number will be a multiple of 7, time to switch directions
-            if num_said % 7 == 0:
+            if (num_said + 1) % 7 == 0:
                 print "this should switch", dir
                 dir = switch_direction(dir)
                 print "this should switch", dir
         num_said += 1
     return "Player to say the total: " + str(player_number)
 
-print the_counting_game(10, 29)
+print the_counting_game(10, 24)
 
 
 
